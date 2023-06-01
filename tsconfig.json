@@ -26,21 +26,21 @@
 		"noFallthroughCasesInSwitch": false,
 		"rootDir": "./",
 		"paths": {
-			"@Application/*": [
-				"./src/application/*"
+			"@Core/*": [
+				"./src/core/*"
 			],
 			"@Domain/*": [
 				"./src/domain/*"
+			],
+			"@Application/*": [
+				"./src/application/*"
 			],
 			"@Persistence/*": [
 				"./src/persistence/*"
 			],
 			"@Infrastructure/*": [
 				"./src/infrastructure/*"
-			],
-			"@Testing/*": [
-				"./test/*"
-			],
+			]
 		}
 	}
 }

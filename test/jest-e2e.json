@@ -4,7 +4,7 @@
 		"json",
 		"ts"
 	],
-	"rootDir": "./e2e/*",
+	"rootDir": "./e2e",
 	"testEnvironment": "node",
 	"testRegex": ".e2e.spec.ts$",
 	"transform": {

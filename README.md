@@ -17,6 +17,8 @@ A simple, robust NestJS API for managing libraries.
 
 - Library Administrator:
   - [ ] Register a new book
+  - [ ] Register a new author
+  - [ ] Register a new genre
   - [ ] Register new books (in bulk)
   - [ ] Register new books via CSV
   - [ ] Update a book
