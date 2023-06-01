@@ -2,6 +2,9 @@
 	"name": "library-api",
 	"version": "0.0.1",
 	"description": "A side-project of mine, just a simple Nest API to manage a library :)",
+	"engines": {
+		"node": ">=18 <19"
+	},
 	"author": {
 		"name": "Pietro Piva Vieira",
 		"email": "pietro.developer@gmail.com"
@@ -30,6 +33,7 @@
 		"@nestjs/platform-express": "^9.0.0",
 		"@nestjs/swagger": "^6.3.0",
 		"@prisma/client": "^4.15.0",
+		"dotenv": "^16.1.3",
 		"reflect-metadata": "^0.1.13",
 		"rimraf": "^3.0.2",
 		"rxjs": "^7.2.0",
