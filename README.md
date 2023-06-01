@@ -26,6 +26,10 @@ A simple, robust NestJS API for managing libraries.
 - All Users:
   - [ ] Retrieve the catalog (paginated)
   - [ ] Retrieve a specific book (by it's ID)
-  - [ ] Fetch a list of books by name
+  - [ ] Fetch a list of books by title
   - [ ] Fetch a list of books by author name
   - [ ] Fetch a list of books by genre
+- Members:
+  - [ ] Borrow a book
+  - [ ] Renew a borrowed book
+  - [ ] Return a borrowed book
