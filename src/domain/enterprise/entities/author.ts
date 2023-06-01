@@ -11,7 +11,7 @@ interface AuthorProps {
 
 export class Author extends Entity<AuthorProps> {
 	public constructor(
-		props: Optional<AuthorProps, "createdAt" | "booksIds">,
+		props: Optional<AuthorProps, "booksIds" | "createdAt">,
 		id?: string,
 	) {
 		super(
@@ -44,5 +44,13 @@ export class Author extends Entity<AuthorProps> {
 	public set Bio(value: string) {
 		this.props.bio = value;
 		this.touch();
+	}
+
+	public get CreatedAt(): Date {
+		return this.props.createdAt;
+	}
+
+	public get UpdatedAt(): Date | undefined {
+		return this.props.updatedAt;
 	}
 }

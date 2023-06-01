@@ -17,4 +17,8 @@ export class InMemoryAuthorsRepository extends AuthorsRepository {
 
 		return author;
 	}
+
+	public async fetchManyByName(name: string): Promise<Author[]> {
+		return this.items.filter((item) => item.Name.includes(name));
+	}
 }
