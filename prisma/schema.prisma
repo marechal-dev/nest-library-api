@@ -9,3 +9,31 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Book {
+  id         String    @id @default(uuid())
+  title      String
+  genre      String
+  publisher  String
+  isbn       String    @unique
+  releasedAt DateTime  @map("released_at")
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime? @updatedAt @map("updated_at")
+
+  author   Author @relation(fields: [authorId], references: [id])
+  authorId String @map("author_id")
+
+  @@index([authorId])
+  @@map("books")
+}
+
+model Author {
+  id        String    @id @default(uuid())
+  name      String
+  bio       String
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+  books     Book[]
+
+  @@map("authors")
+}
