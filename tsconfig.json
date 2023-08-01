@@ -8,7 +8,10 @@
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"allowSyntheticDefaultImports": true,
-		"target": "ES2021",
+		"types": [
+			"vitest/globals"
+		],
+		"target": "es2021",
 		"sourceMap": true,
 		"outDir": "./dist",
 		"baseUrl": "./",
@@ -26,6 +29,9 @@
 		"noFallthroughCasesInSwitch": false,
 		"rootDir": "./",
 		"paths": {
+			"@Configs/*": [
+				"./src/configs/*"
+			],
 			"@Core/*": [
 				"./src/core/*"
 			],

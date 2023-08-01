@@ -1,20 +1,21 @@
 import { Entity } from "@Core/primitives/entity";
+import { UniqueEntityId } from "@Core/primitives/unique-entity-id";
 import { Optional } from "@Core/types/optional";
 
-interface AuthorProps {
+type AuthorProps = {
 	name: string;
 	bio: string;
-	booksIds: string[];
+	booksIds: UniqueEntityId[];
 	createdAt: Date;
 	updatedAt?: Date;
-}
+};
 
 export class Author extends Entity<AuthorProps> {
-	public constructor(
+	public static create(
 		props: Optional<AuthorProps, "booksIds" | "createdAt">,
 		id?: string,
-	) {
-		super(
+	): Author {
+		return new Author(
 			{
 				...props,
 				booksIds: props.booksIds ?? [],

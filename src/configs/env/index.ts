@@ -4,10 +4,10 @@ import { z } from "zod";
 
 const envVariablesSchemaValidator = z.object({
 	NODE_ENV: z
-		.enum(["development", "production"] as const)
+		.enum(["development", "test", "production"] as const)
 		.default("production"),
 	PORT: z.coerce.number().default(3333),
-	JWT_SECRET: z.string(),
+	JWT_SECRET: z.string().default("JWT-DEV-SECRET"),
 	DATABASE_URL: z.string().url(),
 });
 

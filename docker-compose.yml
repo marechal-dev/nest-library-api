@@ -1,29 +1,29 @@
 version: "3"
 
 services:
-  library-pg-db:
-    image: bitnami/postgresql
-    container_name: "library-pg-db"
-    restart: always
-    ports:
-      - 5432:5432
-    environment:
-      - POSTGRESQL_USERNAME=dev_docker
-      - POSTGRESQL_PASSWORD=dev_docker
-      - POSTGRESQL_DATABASE=library
-    volumes:
-      db_data:/data/postgres
+    library-pg-db:
+        image: bitnami/postgresql
+        container_name: "library-pg-db"
+        restart: always
+        ports:
+            - 5432:5432
+        environment:
+            - POSTGRESQL_USERNAME=dev_docker
+            - POSTGRESQL_PASSWORD=dev_docker
+            - POSTGRESQL_DATABASE=library
+        volumes:
+            - db_data:/data/postgres
 
-  library-api:
-    build: .
-    container_name: "library-api"
-    ports:
-      - 3333:3333
-    volumes:
-      - .:/usr/app
-    depends_on:
-      - library-pg-db
+    dev:
+        build: .
+        container_name: "library-api"
+        ports:
+            - 3333:3333
+        volumes:
+            - .:/usr/app
+        depends_on:
+            - library-pg-db
 
 volumes:
-  db_data:
-    driver: local
+    db_data:
+        driver: local

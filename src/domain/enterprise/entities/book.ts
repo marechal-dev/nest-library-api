@@ -1,23 +1,27 @@
 import { Entity } from "@Core/primitives/entity";
-import { Optional } from "@Core/types/optional";
+import type { Optional } from "@Core/types/optional";
+import { UniqueEntityId } from "@Core/primitives/unique-entity-id";
 
 import { ISBN } from "../value-objects/isbn";
 
-interface BookProps {
+type BookProps = {
 	title: string;
 	edition: string;
 	genre: string;
 	publisher: string;
 	isbn: ISBN;
-	authorId: string;
+	authorId: UniqueEntityId;
 	releasedAt: Date;
 	createdAt: Date;
 	updatedAt?: Date;
-}
+};
 
 export class Book extends Entity<BookProps> {
-	public constructor(props: Optional<BookProps, "createdAt">, id?: string) {
-		super(
+	public static create(
+		props: Optional<BookProps, "createdAt">,
+		id?: string,
+	): Book {
+		return new Book(
 			{
 				...props,
 				createdAt: props.createdAt ?? new Date(),
@@ -61,8 +65,8 @@ export class Book extends Entity<BookProps> {
 		this.touch();
 	}
 
-	public get ISBN(): string {
-		return this.props.isbn.Value;
+	public get ISBN(): ISBN {
+		return this.props.isbn;
 	}
 
 	public get ReleasedAt(): Date {
