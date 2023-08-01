@@ -11,12 +11,12 @@ const envVariablesSchemaValidator = z.object({
 	DATABASE_URL: z.string().url(),
 });
 
-const envParsingResult = envVariablesSchemaValidator.safeParse(process.env);
+const parsingResult = envVariablesSchemaValidator.safeParse(process.env);
 
-if (!envParsingResult.success) {
+if (!parsingResult.success) {
 	console.log("Error when parsing env variables");
-	console.error(envParsingResult.error.format());
+	console.error(parsingResult.error.format());
 	process.exit(1);
 }
 
-export const env = envParsingResult.data;
+export const env = parsingResult.data;

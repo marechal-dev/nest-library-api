@@ -1,0 +1,11 @@
+version: 2
+
+updates:
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: "monthly"
+      time: "14:00"
+      timezone: "America/Sao_Paulo"
+    reviewers:
+      - "marechal-dev"
