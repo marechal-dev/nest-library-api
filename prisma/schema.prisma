@@ -9,3 +9,64 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Author {
+  id   String  @id @default(uuid())
+  name String
+  bio  String?
+
+  releasedBooks Book[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+}
+
+model Book {
+  id          String   @id @default(uuid())
+  title       String
+  edition     String
+  isbn        String   @unique
+  releaseDate DateTime @map("release_date")
+
+  genres      GenresOfBooks[]
+  author      Author          @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  publisher   Publisher       @relation(fields: [publisherId], references: [id], onDelete: Cascade)
+  authorId    String          @map("author_id")
+  publisherId String          @map("publisher_id")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  @@index([authorId], map: "book_author_id_idx", type: Hash)
+  @@map("books")
+}
+
+model GenresOfBooks {
+  book    Book   @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  genre   Genre  @relation(fields: [genreId], references: [id], onDelete: Cascade)
+  bookId  String
+  genreId String
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@id([bookId, genreId])
+  @@map("genres_on_books")
+}
+
+model Genre {
+  id   String @id @default(uuid())
+  name String @unique
+
+  assignedBooks GenresOfBooks[]
+
+  @@map("genres")
+}
+
+model Publisher {
+  id    String @id @default(uuid())
+  title String @unique
+
+  publishedBooks Book[]
+
+  @@map("publishers")
+}

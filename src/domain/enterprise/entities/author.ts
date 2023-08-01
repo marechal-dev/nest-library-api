@@ -4,7 +4,7 @@ import { Optional } from "@Core/types/optional";
 
 type AuthorProps = {
 	name: string;
-	bio: string;
+	bio?: string;
 	booksIds: UniqueEntityId[];
 	createdAt: Date;
 	updatedAt?: Date;
@@ -38,7 +38,7 @@ export class Author extends Entity<AuthorProps> {
 		this.touch();
 	}
 
-	public get Bio(): string {
+	public get Bio(): string | undefined {
 		return this.props.bio;
 	}
 
