@@ -9,6 +9,8 @@ const envVariablesSchemaValidator = z.object({
 	PORT: z.coerce.number().default(3333),
 	JWT_SECRET: z.string().default("JWT-DEV-SECRET"),
 	DATABASE_URL: z.string().url(),
+	RESEND_DOMAIN: z.string(),
+	RESEND_API_KEY: z.string(),
 });
 
 const parsingResult = envVariablesSchemaValidator.safeParse(process.env);

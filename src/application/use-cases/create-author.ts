@@ -1,16 +1,19 @@
+import { Injectable } from "@nestjs/common";
+
 import { ResourceAlreadyExistsError } from "@Application/errors/resource-already-exists-error";
 import { AuthorsRepository } from "@Application/repositories/contracts/authors-repository";
 import { Author } from "@Domain/enterprise/entities/author";
 
 interface CreateAuthorUseCaseRequest {
 	name: string;
-	bio: string;
+	bio?: string;
 }
 
 interface CreateAuthorUseCaseResponse {
 	author: Author;
 }
 
+@Injectable()
 export class CreateAuthorUseCase {
 	public constructor(private readonly authorsRepository: AuthorsRepository) {}
 
@@ -31,9 +34,7 @@ export class CreateAuthorUseCase {
 			);
 		}
 
-		const author = new Author({
-			...request,
-		});
+		const author = Author.create(request);
 
 		await this.authorsRepository.create(author);
 

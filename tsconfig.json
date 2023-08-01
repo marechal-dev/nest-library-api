@@ -8,6 +8,7 @@
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"allowSyntheticDefaultImports": true,
+		"jsx": "react-jsx",
 		"types": [
 			"vitest/globals"
 		],
@@ -43,6 +44,9 @@
 			],
 			"@Infrastructure/*": [
 				"./src/infrastructure/*"
+			],
+			"@Testing/*": [
+				"./test/*"
 			]
 		}
 	}

@@ -13,7 +13,7 @@ type AuthorProps = {
 export class Author extends Entity<AuthorProps> {
 	public static create(
 		props: Optional<AuthorProps, "booksIds" | "createdAt">,
-		id?: string,
+		id?: UniqueEntityId,
 	): Author {
 		return new Author(
 			{

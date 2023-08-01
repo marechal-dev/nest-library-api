@@ -10,9 +10,9 @@ describe("Book Entity Test Suite", () => {
 			authorId: new UniqueEntityId(),
 			title: faker.lorem.lines(1),
 			edition: "10ed",
-			genre: "Action",
+			genresIds: [new UniqueEntityId()],
 			isbn: new ISBN("ISBN 9123-2-123-549-72"),
-			publisher: "Pearson",
+			publisherId: new UniqueEntityId(),
 			releasedAt: new Date(),
 		});
 

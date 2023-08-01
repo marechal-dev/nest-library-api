@@ -1,18 +1,20 @@
-import { BookAlreadyExistsError } from "@Application/errors/book-already-exists-error";
+import { Injectable } from "@nestjs/common";
+
+import { ResourceAlreadyExistsError } from "@Application/errors/resource-already-exists-error";
 import { ResourceNotFoundError } from "@Application/errors/resource-not-found-error";
 import { AuthorsRepository } from "@Application/repositories/contracts/authors-repository";
 import { BooksRepository } from "@Application/repositories/contracts/books-repository";
+import { UniqueEntityId } from "@Core/primitives/unique-entity-id";
 import { Book } from "@Domain/enterprise/entities/book";
 import { ISBN } from "@Domain/enterprise/value-objects/isbn";
-import { Injectable } from "@nestjs/common";
 
 interface CreateBookUseCaseRequest {
 	title: string;
 	edition: string;
-	genre: string;
-	publisher: string;
 	isbn: string;
+	genresIds?: string[];
 	authorId: string;
+	publisherId: string;
 	releasedAt: Date;
 }
 
@@ -48,13 +50,18 @@ export class CreateBookUseCase {
 		);
 
 		if (bookAlreadyExists) {
-			throw new BookAlreadyExistsError(
+			throw new ResourceAlreadyExistsError(
 				`O livro ${request.title} de edição ${request.edition} já está cadastrado`,
 			);
 		}
 
-		const book = new Book({
+		const book = Book.create({
 			...request,
+			genresIds: request.genresIds
+				? request.genresIds.map((item) => new UniqueEntityId(item))
+				: undefined,
+			publisherId: new UniqueEntityId(request.publisherId),
+			authorId: new UniqueEntityId(request.authorId),
 			isbn: new ISBN(request.isbn),
 		});
 

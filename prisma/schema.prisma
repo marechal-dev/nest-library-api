@@ -44,12 +44,14 @@ model Book {
 model GenresOfBooks {
   book    Book   @relation(fields: [bookId], references: [id], onDelete: Cascade)
   genre   Genre  @relation(fields: [genreId], references: [id], onDelete: Cascade)
-  bookId  String
-  genreId String
+  bookId  String @map("book_id")
+  genreId String @map("genre_id")
 
   createdAt DateTime @default(now()) @map("created_at")
 
   @@id([bookId, genreId])
+  @@index(fields: [bookId], map: "genre_of_books_pivot_book_id_idx", type: Hash)
+  @@index(fields: [genreId], map: "genre_of_books_pivot_genre_id_idx", type: Hash)
   @@map("genres_on_books")
 }
 
@@ -59,14 +61,20 @@ model Genre {
 
   assignedBooks GenresOfBooks[]
 
+  createdAt DateTime @default(now()) @map("created_at")
+
   @@map("genres")
 }
 
 model Publisher {
-  id    String @id @default(uuid())
-  title String @unique
+  id       String @id @default(uuid())
+  title    String @unique
+  imageUrl String
 
   publishedBooks Book[]
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
 
   @@map("publishers")
 }

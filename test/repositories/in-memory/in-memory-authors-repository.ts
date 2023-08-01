@@ -9,7 +9,7 @@ export class InMemoryAuthorsRepository extends AuthorsRepository {
 	}
 
 	public async findById(id: string): Promise<Author | null> {
-		const author = this.items.find((item) => item.ID === id);
+		const author = this.items.find((item) => item.ID.Value === id);
 
 		if (!author) {
 			return null;

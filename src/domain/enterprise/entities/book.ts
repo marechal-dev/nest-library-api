@@ -1,5 +1,5 @@
-import { Entity } from "@Core/primitives/entity";
 import type { Optional } from "@Core/types/optional";
+import { Entity } from "@Core/primitives/entity";
 import { UniqueEntityId } from "@Core/primitives/unique-entity-id";
 
 import { ISBN } from "../value-objects/isbn";
@@ -7,10 +7,10 @@ import { ISBN } from "../value-objects/isbn";
 type BookProps = {
 	title: string;
 	edition: string;
-	genre: string;
-	publisher: string;
-	isbn: ISBN;
+	genresIds: UniqueEntityId[];
+	publisherId: UniqueEntityId;
 	authorId: UniqueEntityId;
+	isbn: ISBN;
 	releasedAt: Date;
 	createdAt: Date;
 	updatedAt?: Date;
@@ -18,12 +18,13 @@ type BookProps = {
 
 export class Book extends Entity<BookProps> {
 	public static create(
-		props: Optional<BookProps, "createdAt">,
-		id?: string,
+		props: Optional<BookProps, "genresIds" | "createdAt">,
+		id?: UniqueEntityId,
 	): Book {
 		return new Book(
 			{
 				...props,
+				genresIds: props.genresIds ?? [],
 				createdAt: props.createdAt ?? new Date(),
 			},
 			id,
@@ -47,21 +48,21 @@ export class Book extends Entity<BookProps> {
 		return this.props.edition;
 	}
 
-	public get Genre(): string {
-		return this.props.title;
+	public get GenresIds(): UniqueEntityId[] {
+		return this.props.genresIds;
 	}
 
-	public set Genre(value: string) {
-		this.props.genre = value;
+	public addGenreId(genreId: UniqueEntityId): void {
+		this.props.genresIds.push(genreId);
 		this.touch();
 	}
 
-	public get Publisher(): string {
-		return this.props.publisher;
+	public get PublisherId(): UniqueEntityId {
+		return this.props.publisherId;
 	}
 
-	public set Publisher(value: string) {
-		this.props.publisher = value;
+	public set PublisherId(value: UniqueEntityId) {
+		this.props.publisherId = value;
 		this.touch();
 	}
 
@@ -82,7 +83,7 @@ export class Book extends Entity<BookProps> {
 		return this.props.createdAt;
 	}
 
-	public get UpdatedAt(): Date | null {
-		return this.props.updatedAt ?? null;
+	public get UpdatedAt(): Date | undefined {
+		return this.props.updatedAt;
 	}
 }

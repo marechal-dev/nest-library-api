@@ -7,7 +7,7 @@ export class UniqueEntityId {
 		this._id = id ?? randomUUID();
 	}
 
-	public get ID(): string {
+	public get Value(): string {
 		return this._id;
 	}
 }
